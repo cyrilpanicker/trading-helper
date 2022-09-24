@@ -37,12 +37,12 @@
 }
 
 .order-placer .cta-panel button{
-    background-color: black;
+    background-color: transparent;
     border: 1px solid black;
     outline: none;
     padding: 5px 30px;
     cursor: pointer;
     font-family: monospace;
     font-size: 17px;
-    color: white;
+    color: black;
 }

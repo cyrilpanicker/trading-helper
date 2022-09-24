@@ -98,7 +98,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                 />
             </fieldset>
             <fieldset>
-                <label htmlFor="higherPrice">higher-price:</label>
+                <label htmlFor="higherPrice">resistance:</label>
                 <input
                     id="higherPrice"
                     className="higher-price"
@@ -109,7 +109,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                 />
             </fieldset>
             <fieldset>
-                <label htmlFor="lowerPrice">lower-price:</label>
+                <label htmlFor="lowerPrice">support:</label>
                 <input
                     id="lowerPrice"
                     className="lower-price"

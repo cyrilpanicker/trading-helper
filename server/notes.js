@@ -1,20 +1,28 @@
 
 let notesText = "";
+const separator = '--------------------------------------------------------'
+const lineBreak = `
+`
+const separatorWithLineBreaks = `${lineBreak}${separator}${lineBreak}`;
 
 module.exports.addNote = (text, info, skipPersistence) => {
     if (!skipPersistence) {
         const textToNote = info && info.message ? info.message : text
         if (!notesText) {
-            notesText = textToNote;
+            notesText = `${textToNote}${separatorWithLineBreaks}`;
         } else {
-            notesText = notesText + '\n--------------------------------------------------------\n' + textToNote;
+            if (notesText[notesText.length - 1] === '\n') {
+                notesText = `${notesText}${textToNote}${separatorWithLineBreaks}`;
+            } else {
+                notesText = `${notesText}${separatorWithLineBreaks}${textToNote}${separatorWithLineBreaks}`;
+            }
         }
     }
     console.log(text);
-    if(info){
+    if (info) {
         console.log(info)
     }
-    console.log('--------------------------------------------------------')
+    console.log(separator)
 };
 
 module.exports.getNotes = (req, res) => {
@@ -24,5 +32,5 @@ module.exports.getNotes = (req, res) => {
 module.exports.addNoteFromClient = (req, res) => {
     const { text } = req.body;
     notesText = text;
-    res.send({data: 'note added'});
+    res.send({ data: 'note added' });
 }

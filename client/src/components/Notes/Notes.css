@@ -12,11 +12,11 @@
 
 .notes button{
     border: 1px solid black;
-    background-color: black;
+    background-color: transparent;
     border-top: none;
     height: 35px;
     font-family: monospace;
     font-size: 17px;
     cursor: pointer;
-    color: white;
+    color: black;
 }
