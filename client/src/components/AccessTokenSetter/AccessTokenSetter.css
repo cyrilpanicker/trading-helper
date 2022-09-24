@@ -1,0 +1,24 @@
+
+.access-token-setter{
+    padding: 0;
+    background-color: black;
+    border: 1px solid;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    font-family: monospace;
+}
+
+.access-token-setter a{
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.access-token-setter a h2{
+    font-weight: normal;
+}

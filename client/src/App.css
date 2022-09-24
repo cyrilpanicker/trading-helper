@@ -1,0 +1,14 @@
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.access-token-setter, .order-placer, .position-size-finder, .notes{
+  margin: 20px;
+}

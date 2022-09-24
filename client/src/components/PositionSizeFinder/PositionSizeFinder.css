@@ -1,0 +1,31 @@
+.position-size-finder {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.position-size-finder h2 {
+    text-align: center;
+    font-weight: normal;
+    margin: 0 0 15px 0;
+}
+
+.position-size-finder fieldset {
+    border: none;
+}
+
+.position-size-finder fieldset label {
+    width: 110px;
+    display: inline-block;
+    text-align: right;
+    padding: 0 10px;
+}
+
+.position-size-finder fieldset input {
+    border: 1px solid black;
+    outline: none;
+    width: 140px;
+    box-sizing: border-box;
+    padding:2px;
+    height: 20px;
+    appearance: none;
+}

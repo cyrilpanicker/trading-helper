@@ -1,0 +1,48 @@
+.order-placer {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.order-placer h2 {
+    text-align: center;
+    font-weight: normal;
+    margin: 0 0 15px 0;
+}
+
+.order-placer fieldset {
+    border: none;
+}
+
+.order-placer fieldset label {
+    width: 110px;
+    display: inline-block;
+    text-align: right;
+    padding: 0 10px;
+}
+
+.order-placer fieldset input, .order-placer fieldset select {
+    border: 1px solid black;
+    outline: none;
+    width: 140px;
+    box-sizing: border-box;
+    padding:2px;
+    height: 20px;
+    appearance: none;
+}
+
+.order-placer .cta-panel{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.order-placer .cta-panel button{
+    background-color: black;
+    border: 1px solid black;
+    outline: none;
+    padding: 5px 30px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 17px;
+    color: white;
+}

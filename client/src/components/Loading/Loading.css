@@ -1,0 +1,19 @@
+.loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.loading .overlay{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.loading [aria-label="three-dots-loading"]{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
