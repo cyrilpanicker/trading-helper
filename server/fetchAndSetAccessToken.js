@@ -9,7 +9,7 @@ module.exports = function(kc, apiSecret, addNote){
                 try {
                     await kc.setAccessToken(response.access_token)
                 } catch (error) {
-                    addNote('error occurred while fetching access token', error)
+                    addNote('error occurred while setting access token', error)
                     res.status(500).send({ error: error ? error.message : 'error occurred while setting access token' })
                     return;
                 }

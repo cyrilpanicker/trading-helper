@@ -8,17 +8,18 @@ const addNoteFromClient = require('./notes').addNoteFromClient
 const fetchAndSetAccessToken = require('./fetchAndSetAccessToken')
 const placeOrder = require('./placeOrder')
 
-if (!process.env.KITE_API_KEY) {
+const { KITE_API_KEY, KITE_API_SECRET } = process.env;
+
+if (!KITE_API_KEY) {
     throw new Error('environment variable KITE_API_KEY is not set')
 }
 
-if (!process.env.KITE_API_SECRET) {
+if (!KITE_API_SECRET) {
     throw new Error('environment variable KITE_API_SECRET is not set')
 }
 
 const app = express();
 const port = 3001;
-const { KITE_API_KEY, KITE_API_SECRET } = process.env;
 
 const kc = new KiteConnect({ api_key: KITE_API_KEY });
 

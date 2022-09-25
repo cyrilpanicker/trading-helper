@@ -6,6 +6,11 @@ import PositionSizeFinder from './components/PositionSizeFinder';
 import Loading from './components/Loading';
 import './App.css';
 
+const {
+  REACT_APP_POSITION_SIZE_FINDER_DEFAULT_MAX_LOSS: positionSizeFinderDefaultMaxLoss,
+  REACT_APP_ORDER_PLACER_DEFAULT_MAX_LOSS: orderPlacerDefaultMaxLoss
+} = process.env;
+
 function App() {
   const [showLoading, setShowLoading] = useState(false)
   const [notesText, setNotesText] = useState('')
@@ -14,9 +19,9 @@ function App() {
   };
   return (
     <div className="app">
-      <PositionSizeFinder defaultMaxLoss={200} />
+      <PositionSizeFinder defaultMaxLoss={positionSizeFinderDefaultMaxLoss || 100} />
       <section className="place-order-section">
-        <OrderPlacer defaultMaxLoss={200} setShowLoading={setShowLoading} setNotesText={setNotesText} />
+        <OrderPlacer defaultMaxLoss={orderPlacerDefaultMaxLoss || 100} setShowLoading={setShowLoading} setNotesText={setNotesText} />
         <AccessTokenSetter setShowLoading={setShowLoading} setNotesText={setNotesText} />
       </section>
       <Notes text={notesText} onChange={handleNotesTextChange} setShowLoading={setShowLoading} />
