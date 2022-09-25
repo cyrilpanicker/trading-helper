@@ -20,9 +20,7 @@ const app = express();
 const port = 3001;
 const { KITE_API_KEY, KITE_API_SECRET } = process.env;
 
-const kc = new KiteConnect({
-    api_key: KITE_API_KEY
-});
+const kc = new KiteConnect({ api_key: KITE_API_KEY });
 
 app.use(bodyParser.json());
 

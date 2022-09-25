@@ -43,9 +43,7 @@ const AccessTokenSetter = ({ setShowLoading, setNotesText }) => {
     }, [setShowLoading, setNotesText]);
     return (
         <button className="access-token-setter">
-            <a href={`https://kite.zerodha.com/connect/login?v=3&api_key=${process.env.REACT_APP_KITE_API_KEY}`}>
-                <h2>authorize</h2>
-            </a>
+            <a href={`https://kite.zerodha.com/connect/login?v=3&api_key=${process.env.REACT_APP_KITE_API_KEY}`}>authorize</a>
         </button>
     )
 }

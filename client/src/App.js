@@ -14,9 +14,11 @@ function App() {
   };
   return (
     <div className="app">
-      <AccessTokenSetter setShowLoading={setShowLoading} setNotesText={setNotesText} />
       <PositionSizeFinder defaultMaxLoss={200} />
-      <OrderPlacer defaultMaxLoss={200} setShowLoading={setShowLoading} setNotesText={setNotesText} />
+      <section className="place-order-section">
+        <OrderPlacer defaultMaxLoss={200} setShowLoading={setShowLoading} setNotesText={setNotesText} />
+        <AccessTokenSetter setShowLoading={setShowLoading} setNotesText={setNotesText} />
+      </section>
       <Notes text={notesText} onChange={handleNotesTextChange} setShowLoading={setShowLoading} />
       <Loading show={showLoading} />
     </div>

@@ -9,6 +9,6 @@ body,
   align-items: center;
 }
 
-.access-token-setter, .order-placer, .position-size-finder, .notes{
+.place-order-section, .position-size-finder, .notes{
   margin: 20px;
 }
