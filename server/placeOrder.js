@@ -1,3 +1,5 @@
+const symbolsWithSpecialCharacters = ['BAJAJ-AUTO', 'L&TFH', 'M&MFIN', 'M&M', 'NAM-INDIA', 'MCDOWELL-N'];
+const specialCharacters = ['-', '&']
 
 const getCurrentPrice = async (kc, addNote, exchange, tradingsymbol) => {
     const tradingsymbolWithExchange = `${exchange}:${tradingsymbol}`;
@@ -5,14 +7,14 @@ const getCurrentPrice = async (kc, addNote, exchange, tradingsymbol) => {
     try {
         quoteResponse = await kc.getQuote(tradingsymbolWithExchange);
     } catch (error) {
-        addNote('error occurred while fetching current price', error)
+        addNote(`error occurred while fetching current price for ${tradingsymbol}`, error)
         return null
     }
     if (!quoteResponse[tradingsymbolWithExchange] || !quoteResponse[tradingsymbolWithExchange].last_price) {
-        addNote('error occurred while fetching current price')
+        addNote(`error occurred while fetching current price for ${tradingsymbol}`)
         return null
     }
-    addNote('current price fetched successfully', null, true)
+    addNote(`current price fetched successfully for ${tradingsymbol}`, null, true)
     return quoteResponse[tradingsymbolWithExchange].last_price;
 }
 
@@ -43,7 +45,16 @@ const placeOrderFunctionCreator = (kc, addNote, exchange, tradingsymbol, quantit
 
 module.exports = function (kc, addNote) {
     return async (req, res) => {
-        const { exchange, tradingsymbol, transaction_type, higherPrice, lowerPrice, maxLoss } = req.body;
+        let { exchange, tradingsymbol, transaction_type, higherPrice, lowerPrice, maxLoss } = req.body;
+        if (tradingsymbol.indexOf('_') > -1) {
+            for (let i = 0; i < specialCharacters.length; i++) {
+                const testTradingSymbol = tradingsymbol.replace('_', specialCharacters[i]);
+                if (symbolsWithSpecialCharacters.includes(testTradingSymbol)) {
+                    tradingsymbol = testTradingSymbol;
+                    break;
+                };
+            }
+        }
         const currentPrice = await getCurrentPrice(kc, addNote, exchange, tradingsymbol);
         if (!currentPrice) {
             res.status(500).send()
