@@ -1,4 +1,6 @@
-module.exports = function(kc, apiSecret, addNote){
+const startOrderChecking = require('./orderChecker')
+
+module.exports = function (kc, apiSecret, addNote) {
     return async (req, res) => {
         try {
             const response = await kc.generateSession(req.body.requestToken, apiSecret);
@@ -14,6 +16,7 @@ module.exports = function(kc, apiSecret, addNote){
                     return;
                 }
                 addNote('access token set successfully - authorization successful')
+                startOrderChecking(addNote, kc, response.access_token)
                 res.send({ data: response.access_token })
             }
         } catch (error) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './OrderPlacer.css';
 
 const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
@@ -7,6 +7,18 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
     const [tradingsymbol, setTradingsymbol] = useState('');
     const [higherPrice, setHigherPrice] = useState(0);
     const [lowerPrice, setLowerPrice] = useState(0);
+    useEffect(() => {
+        const iframeMessageListener = event => {
+            const { from, symbol } = event.data;
+            if(from === 'extension'){
+                setTradingsymbol(symbol);
+            }
+        }
+        window.addEventListener('message', iframeMessageListener);
+        return () => {
+            window.removeEventListener('message', iframeMessageListener);
+        }
+    },[]);
     const fieldHandlerMap = {
         'maxLoss': setMaxLoss,
         'exchange': setExchange,

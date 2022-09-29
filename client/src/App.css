@@ -12,3 +12,9 @@ body,
 .place-order-section, .position-size-finder, .notes{
   margin: 20px;
 }
+
+@media (max-height: 100px) {
+  .position-size-finder, .notes{
+    display: none;
+  }
+}
