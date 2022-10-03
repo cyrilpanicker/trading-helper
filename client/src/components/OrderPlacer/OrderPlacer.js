@@ -42,7 +42,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
         event.preventDefault();
         setShowLoading(true)
         try {
-            const response = await fetch('/place-order', {
+            await fetch('/place-order', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -57,7 +57,6 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                     lowerPrice
                 })
             });
-            await response.json();
         } catch {
             setShowLoading(false)
         }

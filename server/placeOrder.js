@@ -71,13 +71,16 @@ module.exports = function (kc, addNote) {
             return
         }
         const stopLossOrderPlaced = placeOrder('stop-loss', exitTransactionType, 'SL-M', null, stopLossPrice)
-        const takeProfitOrderPlaced = placeOrder('take-profit', exitTransactionType, 'LIMIT', takeProfitPrice, null)
+        let takeProfitOrderPlaced = null;
+        if (takeProfitPrice) {
+            takeProfitOrderPlaced = placeOrder('take-profit', exitTransactionType, 'LIMIT', takeProfitPrice, null)
+        }
         const exitOrdersPlaced = await Promise.all([stopLossOrderPlaced, takeProfitOrderPlaced]);
-        if (!exitOrdersPlaced[0] || !exitOrdersPlaced[1]) {
+        if (!exitOrdersPlaced[0] || (takeProfitPrice && !exitOrdersPlaced[1])) {
             res.status(500).send()
             return
         }
-        addNote(`order placed: ${transaction_type} - ${tradingsymbol} - ${quantity} - ${currentPrice} - ${takeProfitPrice} - ${stopLossPrice}`)
+        addNote(`order placed: ${transaction_type} - ${tradingsymbol} - ${quantity} - ${currentPrice} - ${takeProfitPrice ? takeProfitPrice : 'NA'} - ${stopLossPrice}`)
         res.send({ data: 'order placed' })
 
     }
