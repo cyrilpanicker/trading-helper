@@ -5,8 +5,8 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
     const [maxLoss, setMaxLoss] = useState(defaultMaxLoss);
     const [exchange, setExchange] = useState('NSE');
     const [tradingsymbol, setTradingsymbol] = useState('');
-    const [higherPrice, setHigherPrice] = useState(0);
-    const [lowerPrice, setLowerPrice] = useState(0);
+    const [takeProfitPrice, setTakeProfitPrice] = useState('');
+    const [stopLossPrice, setStopLossPrice] = useState('');
     useEffect(() => {
         const iframeMessageListener = event => {
             const { from, symbol } = event.data;
@@ -23,8 +23,8 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
         'maxLoss': setMaxLoss,
         'exchange': setExchange,
         'tradingsymbol': setTradingsymbol,
-        'higherPrice': setHigherPrice,
-        'lowerPrice': setLowerPrice
+        'takeProfitPrice': setTakeProfitPrice,
+        'stopLossPrice': setStopLossPrice
     };
     const handleFormChange = (event) => {
         const { id, value } = event.target;
@@ -53,8 +53,8 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                     exchange,
                     tradingsymbol,
                     transaction_type,
-                    higherPrice,
-                    lowerPrice
+                    takeProfitPrice,
+                    stopLossPrice
                 })
             });
         } catch {
@@ -109,23 +109,24 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                 />
             </fieldset>
             <fieldset>
-                <label htmlFor="higherPrice">resistance:</label>
+                <label htmlFor="takeProfitPrice">take-profit:</label>
                 <input
-                    id="higherPrice"
-                    className="higher-price"
+                    id="takeProfitPrice"
+                    className="take-profit"
                     type="number"
-                    value={higherPrice}
+                    value={takeProfitPrice}
                     onChange={handleFormChange}
                     onFocus={selectText}
+                    placeholder={'optional'}
                 />
             </fieldset>
             <fieldset>
-                <label htmlFor="lowerPrice">support:</label>
+                <label htmlFor="stopLossPrice">stop-loss:</label>
                 <input
-                    id="lowerPrice"
-                    className="lower-price"
+                    id="stopLossPrice"
+                    className="stop-loss"
                     type="number"
-                    value={lowerPrice}
+                    value={stopLossPrice}
                     onChange={handleFormChange}
                     onFocus={selectText}
                 />

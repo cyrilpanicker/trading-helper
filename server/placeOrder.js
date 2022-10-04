@@ -45,7 +45,7 @@ const placeOrderFunctionCreator = (kc, addNote, exchange, tradingsymbol, quantit
 
 module.exports = function (kc, addNote) {
     return async (req, res) => {
-        let { exchange, tradingsymbol, transaction_type, higherPrice, lowerPrice, maxLoss } = req.body;
+        let { exchange, tradingsymbol, transaction_type, takeProfitPrice, stopLossPrice, maxLoss } = req.body;
         if (tradingsymbol.indexOf('_') > -1) {
             for (let i = 0; i < specialCharacters.length; i++) {
                 const testTradingSymbol = tradingsymbol.replace('_', specialCharacters[i]);
@@ -60,8 +60,6 @@ module.exports = function (kc, addNote) {
             res.status(500).send()
             return
         }
-        const takeProfitPrice = transaction_type === 'BUY' ? higherPrice : lowerPrice;
-        const stopLossPrice = transaction_type === 'BUY' ? lowerPrice : higherPrice;
         const quantity = Math.floor(maxLoss / Math.abs(currentPrice - stopLossPrice));
         const exitTransactionType = transaction_type === 'BUY' ? 'SELL' : 'BUY';
         const placeOrder = placeOrderFunctionCreator(kc, addNote, exchange, tradingsymbol, quantity);
