@@ -19,7 +19,7 @@ function App() {
   };
   return (
     <div className="app">
-      <PositionSizeFinder defaultMaxLoss={positionSizeFinderDefaultMaxLoss || 100} />
+      {/* <PositionSizeFinder defaultMaxLoss={positionSizeFinderDefaultMaxLoss || 100} /> */}
       <section className="place-order-section">
         <OrderPlacer defaultMaxLoss={orderPlacerDefaultMaxLoss || 100} setShowLoading={setShowLoading} setNotesText={setNotesText} />
         <AccessTokenSetter setShowLoading={setShowLoading} setNotesText={setNotesText} />

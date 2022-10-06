@@ -28,12 +28,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
     };
     const handleFormChange = (event) => {
         const { id, value } = event.target;
-        const handler = fieldHandlerMap[id];
-        if (id === 'tradingsymbol' || id === 'exchange') {
-            handler(value)
-        } else {
-            handler(+value);
-        }
+        fieldHandlerMap[id](value)
     }
     const selectText = (event) => {
         event.target.select();
@@ -49,12 +44,12 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    maxLoss,
+                    maxLoss: +maxLoss,
                     exchange,
                     tradingsymbol,
                     transaction_type,
-                    takeProfitPrice,
-                    stopLossPrice
+                    takeProfitPrice: +takeProfitPrice,
+                    stopLossPrice: +stopLossPrice
                 })
             });
         } catch {
@@ -117,7 +112,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                     value={takeProfitPrice}
                     onChange={handleFormChange}
                     onFocus={selectText}
-                    placeholder={'optional'}
+                    placeholder="optional"
                 />
             </fieldset>
             <fieldset>

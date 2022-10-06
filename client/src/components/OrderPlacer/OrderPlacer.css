@@ -31,6 +31,11 @@
     appearance: none;
 }
 
+.order-placer fieldset input::-webkit-input-placeholder,
+.order-placer fieldset input::placeholder{
+    font-family: monospace;
+}
+
 .order-placer .cta-panel {
     display: flex;
     justify-content: space-around;
