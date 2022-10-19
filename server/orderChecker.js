@@ -3,27 +3,27 @@ const KiteTicker = require("kiteconnect").KiteTicker;
 
 const { KITE_API_KEY: api_key } = process.env
 
-module.exports = (addNote, kc, access_token) => {
+module.exports = (log, kc, access_token) => {
     const ticker = new KiteTicker({ api_key, access_token });
     ticker.autoReconnect(true, 10000, 5);
     ticker.connect();
     ticker.on("connect", async () => {
-        addNote('ticker connected successfully')
+        log('ticker connected successfully')
     });
     ticker.on('disconnect', () => {
-        addNote('ticker disconnected')
+        log('ticker disconnected')
     })
     ticker.on("noreconnect", () => {
-        addNote("ticker reconnection failed");
+        log("ticker reconnection failed");
     });
     ticker.on("reconnect", () => {
-        addNote(`ticker reconnecting`);
+        log(`ticker reconnecting`);
     });
     ticker.on('error', () => {
-        addNote('ticker connection closed with error')
+        log('ticker connection closed with error')
     })
     ticker.on('close', () => {
-        addNote('ticker connection closed')
+        log('ticker connection closed')
     })
     ticker.on('order_update', _.debounce(async () => {
         try {
@@ -35,11 +35,11 @@ module.exports = (addNote, kc, access_token) => {
             for (let i = 0; i < pendingOrders.length; i++) {
                 if (positionValuesMap[pendingOrders[i].tradingsymbol].quantity === 0) {
                     await kc.cancelOrder('regular', pendingOrders[i].order_id)
-                    addNote(`pending order ${pendingOrders[i].order_id} for ${pendingOrders[i].tradingsymbol} cancelled`, null, true)
+                    log(`pending order ${pendingOrders[i].order_id} for ${pendingOrders[i].tradingsymbol} cancelled`, null, true)
                 }
             }
         } catch (error) {
-            addNote('error ocurred while checking and cancelling pending orders', error, true)
+            log('error ocurred while checking and cancelling pending orders', error, true)
         }
     }, 2000))
 }

@@ -9,12 +9,17 @@ body,
   align-items: center;
 }
 
-.place-order-section, .position-size-finder, .notes{
+.place-order-section, .position-size-finder{
   margin: 20px;
 }
 
 @media (max-height: 100px) {
-  .position-size-finder, .notes{
+  .position-size-finder{
     display: none;
+  }
+  .Toastify__toast-container{
+    top: 0;
+    left: 0;
+    width: 100%;
   }
 }

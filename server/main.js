@@ -2,10 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const KiteConnect = require("kiteconnect").KiteConnect;
 const bodyParser = require('body-parser');
-const addNote = require('./notes').addNote
-const getNotes = require('./notes').getNotes
-const addNoteFromClient = require('./notes').addNoteFromClient
-const fetchAndSetAccessToken = require('./fetchAndSetAccessToken')
+const log = require('./logger').log
+const fetchAndSetAccessToken = require('./fetchAndSetAccessToken').fetchAndSetAccessToken
+const isAccessTokenSet = require('./fetchAndSetAccessToken').isAccessTokenSet
 const placeOrder = require('./placeOrder')
 
 const { KITE_API_KEY, KITE_API_SECRET } = process.env;
@@ -29,14 +28,12 @@ app.get('/', (req, res) => {
     res.send('trading-helper server is functional');
 });
 
-app.post('/fetch-and-set-access-token', fetchAndSetAccessToken(kc, KITE_API_SECRET, addNote));
+app.post('/fetch-and-set-access-token', fetchAndSetAccessToken(kc, KITE_API_SECRET, log));
 
-app.post('/place-order', placeOrder(kc, addNote));
+app.post('/place-order', placeOrder(kc, log));
 
-app.get('/get-notes', getNotes)
-
-app.post('/add-note', addNoteFromClient)
+app.get('/is-access-token-set', isAccessTokenSet);
 
 app.listen(port, () => {
-    addNote(`trading-helper server listening on port ${port}`)
+    log(`trading-helper server listening on port ${port}`)
 });

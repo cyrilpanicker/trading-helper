@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import './OrderPlacer.css';
 
-const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
+const OrderPlacer = ({ defaultMaxLoss, setShowLoading, toastError, toastInfo }) => {
     const [maxLoss, setMaxLoss] = useState(defaultMaxLoss);
     const [exchange, setExchange] = useState('NSE');
     const [tradingsymbol, setTradingsymbol] = useState('');
     const [takeProfitPrice, setTakeProfitPrice] = useState('');
     const [stopLossPrice, setStopLossPrice] = useState('');
     useEffect(() => {
+        window.parent.postMessage('ready', '*')
         const iframeMessageListener = event => {
             const { from, symbol } = event.data;
             if(from === 'extension'){
@@ -37,7 +38,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
         event.preventDefault();
         setShowLoading(true)
         try {
-            await fetch('/place-order', {
+            const response = await fetch('/place-order', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -52,22 +53,15 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, setNotesText }) => {
                     stopLossPrice: +stopLossPrice
                 })
             });
+            const responseData = await response.json()
+            if(responseData.error){
+                toastError(responseData.error)
+            }
+            if(responseData.data){
+                toastInfo(responseData.data)
+            }
         } catch {
-            setShowLoading(false)
-        }
-        setShowLoading(false)
-        setShowLoading(true)
-        try {
-            const response = await fetch('/get-notes', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            const notesContent = await response.json()
-            setNotesText(notesContent.data)
-        } catch (error) {
-            console.log(error)
+            toastError("unknown error occurred while placing order")
             setShowLoading(false)
         }
         setShowLoading(false)

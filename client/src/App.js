@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import AccessTokenSetter from './components/AccessTokenSetter';
 import OrderPlacer from './components/OrderPlacer';
-import Notes from './components/Notes';
 import PositionSizeFinder from './components/PositionSizeFinder';
 import Loading from './components/Loading';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const {
@@ -13,19 +14,25 @@ const {
 
 function App() {
   const [showLoading, setShowLoading] = useState(false)
-  const [notesText, setNotesText] = useState('')
-  const handleNotesTextChange = (event) => {
-    setNotesText(event.target.value);
-  };
+  const [isAccessTokenSet, setIsAccessTokenSet] = useState(false)
+  const toastInfo = (message) => {
+    toast.info(message)
+  }
+  const toastError = (message) => {
+    toast.error(message)
+  }
   return (
     <div className="app">
       {/* <PositionSizeFinder defaultMaxLoss={positionSizeFinderDefaultMaxLoss || 100} /> */}
       <section className="place-order-section">
-        <OrderPlacer defaultMaxLoss={orderPlacerDefaultMaxLoss || 100} setShowLoading={setShowLoading} setNotesText={setNotesText} />
-        <AccessTokenSetter setShowLoading={setShowLoading} setNotesText={setNotesText} />
+        {isAccessTokenSet ? (
+          <OrderPlacer defaultMaxLoss={orderPlacerDefaultMaxLoss || 100} setShowLoading={setShowLoading} toastError={toastError} toastInfo={toastInfo} />
+        ) : (
+          <AccessTokenSetter setShowLoading={setShowLoading} toastError={toastError} toastInfo={toastInfo} setIsAccessTokenSet={setIsAccessTokenSet} />
+        )}
       </section>
-      <Notes text={notesText} onChange={handleNotesTextChange} setShowLoading={setShowLoading} />
       <Loading show={showLoading} />
+      <ToastContainer pauseOnHover={false} position="top-left" />
     </div>
   );
 }
