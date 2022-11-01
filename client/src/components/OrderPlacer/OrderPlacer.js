@@ -98,7 +98,7 @@ const OrderPlacer = ({ defaultMaxLoss, setShowLoading, toastError, toastInfo }) 
                 />
             </fieldset>
             <fieldset>
-                <label htmlFor="takeProfitPrice">take-profit:</label>
+                <label htmlFor="takeProfitPrice">target:</label>
                 <input
                     id="takeProfitPrice"
                     className="take-profit"
