@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "postinstall": "cd client && npm install",
     "start-server": "node server/main.js",
     "start-client": "cd client && npm start",
     "start": "concurrently \"npm run start-server\" \"npm run start-client\""
