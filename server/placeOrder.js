@@ -1,4 +1,4 @@
-const symbolsWithSpecialCharacters = ['BAJAJ-AUTO', 'L&TFH', 'M&MFIN', 'M&M', 'NAM-INDIA', 'MCDOWELL-N'];
+const symbolsWithSpecialCharacters = ['BAJAJ-AUTO', 'L&TFH', 'M&MFIN', 'M&M', 'NAM-INDIA', 'MCDOWELL-N', 'J&KBANK'];
 const specialCharacters = ['-', '&']
 
 const getCurrentPrice = async (kc, log, exchange, tradingsymbol) => {
